@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="admin-layout">
+    <!-- Mobile Toggle Button -->
+    <button class="drawer-toggle" id="drawerToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Admin Drawer -->
+    <aside class="admin-drawer" id="adminDrawer">
+        <div class="drawer-header">
+            <img src="{% static 'imgs/logo-trans.png' %}" alt="Logo" class="logo" style="height: 32px;">
+            <h1 class="drawer-title">Admin Dashboard</h1>
+        </div>
+        
+        <nav class="drawer-nav">
+            <div class="nav-group">
+                <h2 class="nav-group-title">Main</h2>
+                <a href="{% url 'admin-dashboard' %}" class="nav-item active">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+                <a href="{% url 'users' %}" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+                <a href="{% url 'notification_list' %}" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    Notifications
+                </a>
+            </div>
+            
+            <div class="nav-group">
+                <h2 class="nav-group-title">Content</h2>
+                <a href="{% url 'create_course_video' %}" class="nav-item">
+                    <i class="fas fa-video"></i>
+                    Create Video
+                </a>
+                <a href="{% url 'sections_list' %}" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    Course Sections
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <h1 class="admin-title">Dashboard Overview</h1>
+        </header>
+
+        <div class="dashboard-grid">
+            <!-- Active Users Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">Active Users</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+                <h4 class="card-value" id="totalUsers">{{ active_users }}</h4>
+                <p class="card-subtitle" id="activeUsersPercentage">{% widthratio active_users total_users 100 %}% of total users</p>
+            </div>
+
+            <!-- Videos Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">Total Videos</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                </div>
+                <h4 class="card-value" id="totalVideos">{{ total_videos }}</h4>
+                <p class="card-subtitle">Across all sections</p>
+            </div>
+
+            <!-- Sections Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">Course Sections</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                </div>
+                <h4 class="card-value" id="totalSections">{{ total_sections }}</h4>
+                <p class="card-subtitle">Active sections</p>
+            </div>
+
+            <!-- Waiting Users Card -->
+            <div class="dashboard-card">
+                <div class="card-header">
+                    <h3 class="card-title">Waiting Approval</h3>
+                    <div class="card-icon">
+                        <i class="fas fa-user-clock"></i>
+                    </div>
+                </div>
+                <h4 class="card-value" id="waitingUsers">{{ waiting_users }}</h4>
+                <p class="card-subtitle">Users pending approval</p>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin/dashboard.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const drawerToggle = document.getElementById('drawerToggle');
+        const adminDrawer = document.getElementById('adminDrawer');
+        
+        drawerToggle.addEventListener('click', function() {
+            adminDrawer.classList.toggle('active');
+        });
+    });
+</script>
+{% endblock %}

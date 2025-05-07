@@ -1,0 +1,652 @@
+/* Register Page Styles */
+
+.register-section {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 1rem;
+  background-color: var(--Background);
+  position: relative;
+  overflow: hidden;
+}
+
+.register-container {
+  max-width: 450px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.register-card {
+  background-color: var(--Surface);
+  border-radius: 1rem;
+  box-shadow: var(--Shadow-Medium);
+  padding: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.register-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  background: linear-gradient(90deg, var(--Primary), var(--Accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: bganimate 6s ease infinite;
+  background-size: 200% 100%;
+}
+
+.register-subtitle {
+  color: var(--Text-Secondary);
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+
+/* Form Styles */
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.form-row {
+  position: relative;
+  width: 100%;
+}
+
+.dual-field {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.form-field {
+  position: relative;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--Border);
+  border-radius: 0.5rem;
+  background-color: var(--Surface-Elevated);
+  transition: all var(--Transition-Normal);
+  overflow: hidden;
+}
+
+.input-container:focus-within {
+  border-color: #1e88e5; /* Blue color instead of var(--Accent) */
+  box-shadow: 0 0 0 2px rgba(30, 136, 229, 0.1); /* Blue shadow instead of purple */
+}
+
+.input-container i {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  font-size: 0.9rem;
+  margin: 0 0.6rem;
+  opacity: 0.8;
+}
+
+/* Phone number hint text */
+.phone-hint {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--Text-Secondary);
+  padding-left: 0.5rem;
+}
+
+.phone-hint code {
+  background: rgba(30, 136, 229, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  color: #1e88e5;
+  font-size: 0.75rem;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 0.65rem 0.75rem 0.65rem 0;
+  border: none;
+  background: transparent;
+  color: var(--Text-Primary);
+  font-size: 0.9rem;
+  outline: none;
+  width: 100%;
+}
+
+.input-container input::placeholder {
+  color: var(--Text-Disabled);
+}
+
+/* Password field - Hide browser's default reveal button */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Fix Firefox - more specific selector */
+input[type="password"] {
+  -webkit-text-security: disc !important;
+}
+
+/* Ensure our custom toggle button always shows */
+.password-toggle {
+  z-index: 5;
+  background: transparent;
+  border: none;
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--Transition-Fast);
+}
+
+.password-toggle:hover {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+}
+
+/* Password Strength Meter */
+.password-strength {
+  margin-top: 0.35rem;
+}
+
+.strength-bar {
+  width: 100%;
+  height: 4px;
+  background-color: var(--Surface-Elevated);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.strength-progress {
+  height: 100%;
+  width: 0;
+  background-color: #1e88e5; /* Blue color instead of var(--Accent) */
+  transition: width var(--Transition-Normal),
+    background-color var(--Transition-Normal);
+}
+
+/* Checkbox Field */
+.checkbox-field {
+  margin-top: 0.15rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin-top: 0.1rem;
+  accent-color: #1e88e5; /* Blue color instead of var(--Accent) */
+}
+
+.checkbox-container label {
+  color: var(--Text-Secondary);
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.terms-link {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  text-decoration: none;
+  transition: color var(--Transition-Fast);
+}
+
+.terms-link:hover {
+  color: #42a5f5; /* Lighter blue for hover instead of var(--Accent-Light) */
+  text-decoration: underline;
+}
+
+/* Terms Button */
+.terms-button {
+  background: none;
+  border: none;
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  padding: 0;
+  font-size: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--Transition-Fast);
+}
+
+.terms-button:hover {
+  color: #42a5f5; /* Lighter blue for hover instead of var(--Accent-Light) */
+  text-decoration: underline;
+}
+
+/* Register Button */
+.register-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1.5rem;
+  margin-top: 0.25rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  background: linear-gradient(90deg, var(--Primary), var(--Primary-Light));
+  color: var(--Background);
+  transition: all var(--Transition-Fast);
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.register-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.register-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--Shadow-Medium);
+}
+
+.register-button:hover::before {
+  left: 100%;
+}
+
+/* Separator */
+.register-separator {
+  position: relative;
+  text-align: center;
+  margin: 1.25rem 0;
+}
+
+.register-separator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--Border);
+}
+
+.register-separator span {
+  position: relative;
+  background-color: var(--Surface);
+  padding: 0 0.75rem;
+  color: var(--Text-Secondary);
+  font-size: 0.85rem;
+}
+
+/* Alternative Register Link */
+.register-alternative {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.register-alternative p {
+  color: var(--Text-Secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.alternative-link {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--Transition-Fast);
+}
+
+.alternative-link:hover {
+  color: #42a5f5; /* Lighter blue for hover instead of var(--Accent-Light) */
+  text-decoration: underline;
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  background-color: var(--Surface);
+  width: 90%;
+  max-width: 600px;
+  border-radius: 1rem;
+  box-shadow: var(--Shadow-Large);
+  margin: 1.5rem auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--Border);
+  background-color: var(--Surface-Elevated);
+}
+
+.modal-tabs {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.tab-button {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: none;
+  border-radius: 0.25rem;
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  transition: all var(--Transition-Fast);
+}
+
+.tab-button.active {
+  background-color: #1e88e5; /* Blue color instead of var(--Accent) */
+  color: var(--Text-Primary);
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all var(--Transition-Fast);
+}
+
+.close-modal:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: var(--Text-Primary);
+}
+
+.modal-body {
+  padding: 1rem;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.terms-content {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--Text-Secondary);
+}
+
+.terms-content p {
+  margin-bottom: 1rem;
+}
+
+.terms-content strong {
+  color: var(--Text-Primary);
+}
+
+.modal-footer {
+  padding: 1rem;
+  border-top: 1px solid var(--Border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--Surface-Elevated);
+}
+
+.modal-agree {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.modal-agree input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #1e88e5; /* Blue color instead of var(--Accent) */
+}
+
+.modal-agree label {
+  font-size: 0.85rem;
+  color: var(--Text-Secondary);
+}
+
+/* Tooltip for disabled checkbox */
+.modal-agree input[type="checkbox"]:disabled + label {
+  cursor: not-allowed;
+}
+
+.modal-agree input[type="checkbox"]:disabled + label::after {
+  content: "Please view and scroll through both Terms of Service and Privacy Policy tabs before agreeing";
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 250px;
+  background-color: var(--Surface-Elevated);
+  color: var(--Text-Primary);
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  box-shadow: var(--Shadow-Medium);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 10;
+  text-align: center;
+}
+
+.modal-agree input[type="checkbox"]:disabled + label::before {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: var(--Surface-Elevated) transparent transparent transparent;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+  z-index: 10;
+}
+
+.modal-agree input[type="checkbox"]:disabled:hover + label::after,
+.modal-agree input[type="checkbox"]:disabled:hover + label::before {
+  opacity: 1;
+  visibility: visible;
+}
+
+.agree-button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: var(--Primary);
+  color: var(--Background);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--Transition-Fast);
+}
+
+.agree-button:hover:not(:disabled) {
+  background-color: var(--Primary-Light);
+  transform: translateY(-2px);
+}
+
+.agree-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Error styles for form validation */
+.input-container.error {
+  border-color: #f44336; /* Red color for error */
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+}
+
+.input-container.error i {
+  color: #f44336; /* Red color for error icon */
+}
+
+.checkbox-field.error label {
+  color: #f44336; /* Red color for checkbox label error */
+}
+
+/* Error message styling for Django messages */
+.messages {
+  display: none; /* Hide the container as we'll show toasts instead */
+}
+
+/* Toast customization */
+.vanillatoasts-toast {
+  z-index: 9999; /* Ensure toasts are always on top */
+}
+
+/* Responsive Styles */
+@media (max-width: 520px) {
+  .register-card {
+    padding: 1.25rem;
+  }
+
+  .register-title {
+    font-size: 1.4rem;
+  }
+
+  .register-subtitle {
+    font-size: 0.8rem;
+  }
+
+  .dual-field {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .form-row {
+    margin-bottom: -0.25rem;
+  }
+
+  .register-button {
+    padding: 0.65rem 1.25rem;
+  }
+
+  .checkbox-container label {
+    font-size: 0.75rem;
+  }
+
+  .register-alternative {
+    margin-top: 0.75rem;
+  }
+
+  .register-alternative p {
+    font-size: 0.85rem;
+  }
+
+  .alternative-link {
+    font-size: 0.85rem;
+  }
+
+  .modal-content {
+    width: 95%;
+    margin: 1rem auto;
+  }
+
+  .modal-header {
+    padding: 0.75rem;
+  }
+
+  .modal-body {
+    padding: 0.75rem;
+    max-height: 50vh;
+  }
+
+  .tab-button {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .terms-content {
+    font-size: 0.85rem;
+  }
+
+  .modal-footer {
+    padding: 0.75rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-agree {
+    width: 100%;
+  }
+
+  .agree-button {
+    width: 100%;
+  }
+}

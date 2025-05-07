@@ -1,0 +1,176 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/admin/dashboard.css' %}">
+<link rel="stylesheet" href="{% static 'css/admin/single-user.css' %}">
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="admin-layout">
+    <!-- Mobile Toggle Button -->
+    <button class="drawer-toggle" id="drawerToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Admin Drawer -->
+    <aside class="admin-drawer" id="adminDrawer">
+        <div class="drawer-header">
+            <img src="{% static 'imgs/logo-trans.png' %}" alt="Logo" class="logo" style="height: 32px;">
+            <h1 class="drawer-title">Admin Dashboard</h1>
+        </div>
+        
+        <nav class="drawer-nav">
+            <div class="nav-group">
+                <h2 class="nav-group-title">Main</h2>
+                <a href="{% url 'admin-dashboard' %}" class="nav-item">
+                    <i class="fas fa-chart-line"></i>
+                    Dashboard
+                </a>
+                <a href="{% url 'users' %}" class="nav-item active">
+                    <i class="fas fa-users"></i>
+                    Users
+                </a>
+                <a href="{% url 'notification_list' %}" class="nav-item">
+                    <i class="fas fa-bell"></i>
+                    Notifications
+                </a>
+            </div>
+            
+            <div class="nav-group">
+                <h2 class="nav-group-title">Content</h2>
+                <a href="{% url 'create_course_video' %}" class="nav-item">
+                    <i class="fas fa-video"></i>
+                    Create Video
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    Course Sections
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <header class="admin-header">
+            <h1 class="admin-title">User Details</h1>
+        </header>
+
+        <div class="user-profile-container">
+            <!-- User Header -->
+            <div class="user-header">
+                <div class="user-header-content">
+                    <div class="user-avatar">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" alt="{{ user.username }}">
+                        {% else %}
+                            <img src="{% static 'imgs/default-avatar.png' %}" alt="{{ user.username }}">
+                        {% endif %}
+                    </div>
+                    <div class="user-info">
+                        <h2 class="user-name">{{ user.username }}</h2>
+                        <p class="user-full-name">{{ user.full_name }}</p>
+                        <p class="user-email">{{ user.email }}</p>
+                    <div class="user-actions">
+                    {% if not user.access %}
+                    <button class="action-button" data-action="access" data-user-id="{{ user.id }}" data-current-status="{{ user.access|lower }}">
+                    <i class="fas fa-user-check"></i>
+                    <span>Grant Access</span>
+                    </button>
+                    {% else %}
+                    <button class="action-button" data-action="access" data-user-id="{{ user.id }}" data-current-status="{{ user.access|lower }}">
+                    <i class="fas fa-user-slash"></i>
+                    <span>Revoke Access</span>
+                    </button>
+                    {% endif %}
+                    <button class="action-button" data-action="email" data-email="{{ user.email }}">
+                              <i class="fas fa-envelope"></i>
+                                                        <span>Send Message</span>
+
+    <form action="{% url 'delete_user' user.id %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button class="action-button delete-button" onclick="return confirm('Are you sure you want to delete this user?');">
+            <i class="fas fa-trash-alt"></i>
+            <span>Delete</span>
+        </button>
+    </form>
+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- User Details -->
+            <div class="user-details">
+                <!-- Personal Information -->
+                <div class="details-section">
+                    <h3 class="section-title">Personal Information</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <p class="detail-label">Phone Number</p>
+                            <p class="detail-value">{{ user.phone_number }}</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Join Date</p>
+                            <p class="detail-value">{{ user.date_joined|date:"F j, Y" }}</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Status</p>
+                            <p class="detail-value">{% if user.access %}Active{% else %}Pending{% endif %}</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Last Login</p>
+                            <p class="detail-value">{{ user.last_login|date:"F j, Y H:i" }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course Progress -->
+                <div class="details-section">
+                    <h3 class="section-title">Course Progress</h3>
+                    <div class="details-grid">
+                        <div class="detail-item">
+                            <p class="detail-label">Completed Videos</p>
+                            <p class="detail-value">{{ completed_videos_count }} / {{ total_videos }}</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: {{ progress_percentage }}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="details-section">
+                    <h3 class="section-title">Recent Activity</h3>
+                    <div class="timeline" id="activityTimeline">
+                        {% if user_activities %}
+                            {% for activity in user_activities %}
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <p class="timeline-date">{{ activity.timestamp|date:"F j, Y H:i" }}</p>
+                                    <p class="timeline-text">{{ activity.description }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="timeline-item">
+                                <div class="timeline-content">
+                                    <p class="timeline-text">No recent activity</p>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                    {% if user_activities|length > 3 %}
+                        <button class="timeline-toggle" id="timelineToggle">Show More</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/admin/user-profile.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,145 @@
+/* Watermark Styles for BehindTheSearch */
+
+.video-watermark {
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  z-index: 10000;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  mix-blend-mode: difference;
+}
+
+.video-watermark div {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+  font-weight: 500;
+}
+
+/* Bunny video wrapper styles */
+.bunny-video-wrapper {
+  position: relative !important;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Custom fullscreen button */
+.bts-custom-fullscreen-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 45px; /* Position on the left side, next to play button */
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 7px 10px;
+  cursor: pointer;
+  z-index: 999;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.bts-custom-fullscreen-btn:hover {
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Smooth transition for fullscreen toggle */
+.bts-fullscreen-transition {
+  transition: all 0.3s ease !important;
+}
+
+/* Custom fullscreen mode */
+.bts-custom-fullscreen {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  background-color: black !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Ensure iframe stays positioned correctly in fullscreen */
+.bts-custom-fullscreen iframe {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100vh !important;
+  object-fit: contain !important;
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+  /* Move the button below the player on mobile */
+  .bts-custom-fullscreen-btn {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    display: block;
+    margin: 10px auto 0;
+    padding: 8px 15px;
+    font-size: 15px;
+    text-align: center;
+    width: fit-content;
+    background-color: var(--Primary, #8e00a3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+  .bts-custom-fullscreen-btn:hover {
+    background-color: var(--Primary-Dark, #7b0089);
+  }
+  
+  /* Mobile-specific fullscreen styles */
+  .bts-custom-fullscreen {
+    width: 100% !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+  
+  /* Ensure proper orientation in fullscreen on mobile */
+  .bts-custom-fullscreen iframe,
+  .bts-custom-fullscreen video {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important; 
+    height: 100% !important;
+    object-fit: contain !important;
+    background: black !important;
+  }
+  
+  /* Ensure the watermark is visible but not intrusive on mobile */
+  .video-watermark {
+    font-size: 90%; 
+    opacity: 0.25 !important;
+  }
+}
+
+/* Additional styles for very small screens */
+@media screen and (max-width: 480px) {
+  .bts-custom-fullscreen-btn {
+    padding: 7px 12px;
+    font-size: 14px;
+    width: 100%;
+    max-width: 200px;
+    margin: 8px auto 0;
+  }
+  
+  .video-watermark {
+    font-size: 80%;
+  }
+  
+  /* Fix fullscreen on very small devices */
+  .bts-custom-fullscreen {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  body.mobile-fullscreen-active {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+}

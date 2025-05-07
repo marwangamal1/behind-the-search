@@ -1,0 +1,251 @@
+/* Create Section Form Styles */
+
+.create-section-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.create-section-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--Border);
+}
+
+.create-section-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(45deg, var(--Primary), var(--Primary-Light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.create-section-form {
+  background-color: var(--Surface);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: var(--Shadow-Small);
+  border: 1px solid var(--Border);
+}
+
+.form-group {
+  margin-bottom: 1.8rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--Text-Primary);
+  font-size: 1.05rem;
+}
+/* Enhanced Input Field Styling */
+#id_title {
+  width: 90%;
+  padding: 1rem ;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.5;
+  border-radius: 10px;
+  border: 1px solid var(--Border);
+  background-color: var(--Background-Secondary);
+  color: var(--Text-Primary);
+  transition: all var(--Transition-Fast);
+  font-family: "Poppins", sans-serif;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.01em;
+}
+
+#id_title:focus {
+  outline: none;
+  border-color: var(--Primary-Light);
+  box-shadow: 0 0 0 3px rgba(142, 36, 170, 0.1);
+  background-color: var(--Surface);
+}
+
+#id_title::placeholder {
+  color: var(--Text-Placeholder);
+  opacity: 0.7;
+}
+
+textarea.form-control {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Quill Editor Styles */
+.quill-editor {
+  outline: none;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border: 1px solid var(--Border);
+  min-height: 250px;
+  font-family: "Poppins", sans-serif;
+  border: 1px solid var(--Border);
+  background-color: var(--Background-Secondary);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+.quill-editor::placeholder{
+  color: var(--Text-Placeholder);
+  opacity: 0.7;
+}
+.quill-editor:focus{
+  border-color: var(--Primary-Light);
+  box-shadow: 0 0 0 3px rgba(142, 36, 170, 0.1);
+  background-color: var(--Surface);
+}
+
+#quillEditor{
+  font-size: 1rem;
+  overflow-y: auto;
+  line-height: 1.6;
+  color: var(--Text-Primary);
+}
+
+.form-error {
+  color: var(--Error);
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+.form-action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--Divider);
+}
+
+.btn-cancel {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  background-color: var(--Surface-Elevated);
+  border: 1px solid var(--Border);
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  transition: var(--Transition-Normal);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-cancel:hover {
+  background-color: var(--Surface-Hover);
+  color: var(--Text-Primary);
+  transform: translateY(-2px);
+}
+
+.btn-create {
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  background: linear-gradient(45deg, var(--Primary), var(--Primary-Light));
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: var(--Transition-Normal);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--Shadow-Small);
+}
+
+.btn-create:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--Shadow-Medium);
+}
+
+.btn-create:active {
+  transform: translateY(0);
+}
+
+.back-navigation {
+  margin-top: 1.5rem;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--Primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--Transition-Fast);
+}
+
+.back-link:hover {
+  color: var(--Link-Hover);
+}
+
+.back-link i {
+  transition: transform 0.2s ease;
+}
+
+.back-link:hover i {
+  transform: translateX(-4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .create-section-form {
+    padding: 1.5rem;
+  }
+  
+  .form-action-buttons {
+    flex-direction: column-reverse;
+    gap: 0.75rem;
+  }
+  
+  .btn-cancel, .btn-create {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+  .btn-cancel{
+    width: 90% !important;
+  }
+  .btn-create {
+    margin-bottom: 0.5rem;
+  }
+  
+  .create-section-header {
+    margin-bottom: 1.5rem;
+  }
+  
+  .quill-editor .ql-editor {
+    min-height: 180px;
+  }
+  
+}
+
+@media (max-width: 480px) {
+  .create-section-container {
+    padding: 0 1rem;
+  }
+  
+  .create-section-header h1 {
+    font-size: 1.75rem;
+  }
+  
+  .create-section-form {
+    padding: 1.25rem;
+  }
+  
+  .quill-editor .ql-toolbar {
+    padding: 0.5rem;
+  }
+  
+}

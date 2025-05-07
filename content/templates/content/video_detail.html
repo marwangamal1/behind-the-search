@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  {{ video.title }} - Behind The Search
+{% endblock %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/content/video-details.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/watermark.css' %}" />
+{% endblock %}
+
+{% block content %}
+{% csrf_token %}
+<div class="video-detail-container">
+  <div class="video-detail-header">
+    <h1>{{ video.title }}</h1>
+    <div class="header-actions">
+      <a href="{% url 'section_detail' video.section.id %}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Video List
+      </a>
+      {% if user.is_superuser %}
+        <a href="{% url 'edit_course_video' video.id %}" class="edit-button">
+          <i class="fas fa-edit"></i> Edit Video
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="video-detail-meta">
+    <div class="video-detail-meta-item">
+      <i class="fas fa-list-ol"></i>
+      <span>Lesson {{ video.lesson_number }}</span>
+    </div>
+    <div class="video-detail-meta-item">
+      <i class="{% if video_is_watched_by_user %}fas fa-check-circle{% else %}far fa-circle{% endif %}"></i>
+      <span>
+        {% if video_is_watched_by_user %}
+          Completed
+        {% else %}
+          Not yet completed
+        {% endif %}
+      </span>
+    </div>
+  </div>
+
+  <div class="video-detail-player-container">
+    {% if video.bunny_video_id %}
+      <div id="videoContainer" class="bunny-video-wrapper" style="position: relative; padding-top: 56.25%">
+        <iframe
+          id="videoIframe"
+          src="https://iframe.mediadelivery.net/embed/{{ video.bunny_library_id }}/{{ video.bunny_video_id }}?autoplay=false&loop=false&muted=false&preload=true&responsive=true"
+          loading="lazy"
+          style="border: 0; position: absolute; top: 0; height: 100%; width: 100%"
+          allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;">
+        </iframe>
+      </div>
+    {% else %}
+      <div class="video-error-message">
+        <p>No video available for this lesson.</p>
+      </div>
+    {% endif %}
+  </div>
+
+  <div class="video-detail-content">
+    <h2 class="video-detail-section-title">
+      <span>Lesson Description</span>
+      <button id="toggleDescription" class="toggle-button">
+        <i class="fas fa-chevron-down"></i> Show More
+      </button>
+    </h2>
+    <div id="descriptionContent" class="video-detail-description collapsed">
+      {{ video.description|safe }}
+    </div>
+
+    <div class="video-detail-actions">
+      <button
+        id="markAsWatched"
+        class="video-detail-mark-watched {% if video_is_watched_by_user %}watched{% endif %}"
+        data-video-id="{{ video.id }}">
+        {% if video_is_watched_by_user %}
+          <i class="fas fa-check-circle"></i> Marked as Watched
+        {% else %}
+          <i class="far fa-circle"></i> Mark as Watched
+        {% endif %}
+      </button>
+    </div>
+  </div>
+
+  <div class="video-detail-navigation">
+    {% if prev_video %}
+    <a
+      href="{% url 'video_detail' prev_video.id %}"
+      class="video-detail-nav-button prev"
+    >
+      <i class="fas fa-arrow-left"></i> Previous Lesson
+    </a>
+    {% endif %} 
+    
+    {% if next_video %}
+    <a
+      href="{% url 'video_detail' next_video.id %}"
+      class="video-detail-nav-button next"
+    >
+      Next Lesson <i class="fas fa-arrow-right"></i>
+    </a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script src="{% static 'js/content/video-details.js' %}"></script>
+<script src="{% static 'js/water-mark.js' %}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize watermark with a small delay to ensure everything is loaded
+    setTimeout(function() {
+      const videoContainer = document.getElementById('videoContainer');
+      
+      // Initialize watermark with user info
+      initializeWatermark({
+        text: "{{ user.full_name|default:user.username }}", 
+        email: "{{ user.email }}",
+        opacity: 0.35,
+        fontSize: '14px',
+        container: videoContainer,
+        color: 'rgba(255, 255, 255, 0.75)',
+        enableCustomFullscreen: true,  // Enable our custom fullscreen button
+        moveInterval: 4000  // Move watermark every 4 seconds
+      });
+      
+      // Set up event handlers for iframe events
+      const videoIframe = document.getElementById('videoIframe');
+      if (videoIframe) {
+        videoIframe.addEventListener('load', function() {
+          // Refresh the watermark when the video loads
+          if (window.videoWatermark) {
+            window.videoWatermark.refresh();
+          }
+        });
+      }
+
+      // Toggle description functionality
+      const toggleBtn = document.getElementById('toggleDescription');
+      const descContent = document.getElementById('descriptionContent');
+      
+      if (toggleBtn && descContent) {
+        toggleBtn.addEventListener('click', function() {
+          descContent.classList.toggle('collapsed');
+          if (descContent.classList.contains('collapsed')) {
+            this.innerHTML = '<i class="fas fa-chevron-down"></i> Show More';
+          } else {
+            this.innerHTML = '<i class="fas fa-chevron-up"></i> Show Less';
+          }
+        });
+      }
+    }, 500); // Shorter delay for better responsiveness
+  });
+</script>
+{% endblock %}

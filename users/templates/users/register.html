@@ -1,0 +1,414 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Register - Behind
+The Search{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/register/base.css' %}" />
+{% endblock %} {% block content %}
+<section class="register-section">
+  <div class="register-container">
+    <div class="register-card">
+      <div class="register-header">
+        <h2 class="register-title">Create Account</h2>
+        <p class="register-subtitle">Join our community of search evaluators</p>
+      </div>
+
+      <!-- Messages container for displaying errors -->
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+        <div
+          class="message message-{% if message.tags %}{{ message.tags }}{% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- for test the toast no validate from the backend -->
+      <form
+        action="{% url "register" %}"
+        method="post"
+        class="register-form"
+        id="register-form"
+        novalidate
+      >
+        {% csrf_token %}
+
+        <div class="form-row">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-user"></i>
+              <input
+                type="text"
+                name="{{ form.username.html_name }}"
+                id="{{ form.username.id_for_label }}"
+                placeholder="Username"
+                autocomplete="username"
+                required
+                {%
+                if
+                form.username.value
+                %}value="{{ form.username.value }}"
+                {%
+                endif
+                %}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-envelope"></i>
+              <input
+                type="email"
+                name="{{ form.email.html_name }}"
+                id="{{ form.email.id_for_label }}"
+                placeholder="Email"
+                required
+                {%
+                if
+                form.email.value
+                %}value="{{ form.email.value }}"
+                {%
+                endif
+                %}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row ">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-id-card"></i>
+              <input
+                type="text"
+                name="{{ form.full_name.html_name }}"
+                id="{{ form.full_name.id_for_label }}"
+                placeholder="Enter your full name in arabic"
+                required
+                {%
+                if
+                form.first_name.value
+                %}value="{{ form.full_name.value }}"
+                {%
+                endif
+                %}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-phone"></i>
+              <input
+                type="tel"
+                name="{{ form.phone_number.html_name }}"
+                id="{{ form.phone_number.id_for_label }}"
+                placeholder="Phone Number (e.g., +201234567890)"
+                required
+                {%
+                if
+                form.phone_number.value
+                %}value="{{ form.phone_number.value }}"
+                {%
+                endif
+                %}
+              />
+            </div>
+            <span class="phone-hint"
+              >Start with country code: <code>+20</code> for Egypt</span
+            >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="{{ form.password1.html_name }}"
+                id="{{ form.password1.id_for_label }}"
+                placeholder="Password"
+                autocomplete="new-password"
+                required
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="password1"
+                aria-label="Toggle password visibility"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+            <div class="password-strength">
+              <div class="strength-bar">
+                <div class="strength-progress"></div>
+              </div>
+            </div>
+            <span class="phone-hint">
+              <i class="fas fa-info-circle" style="font-size: 0.7rem; margin-right: 3px;"></i>
+              Password must not be only numbers and cannot contain your name, username, or email
+            </span>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <div class="input-container">
+              <i class="fas fa-lock"></i>
+              <input
+                type="password"
+                name="{{ form.password2.html_name }}"
+                id="{{ form.password2.id_for_label }}"
+                placeholder="Confirm Password"
+                autocomplete="new-password"
+                required
+              />
+              <button
+                type="button"
+                class="password-toggle"
+                data-target="password2"
+                aria-label="Toggle password visibility"
+              >
+                <i class="fas fa-eye"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field checkbox-field">
+            <div class="checkbox-container">
+              <input type="checkbox" id="terms" name="terms" required />
+              <label for="terms"
+                >I agree to the
+                <button type="button" id="openTermsModal" class="terms-button">
+                  Terms of Service and Privacy Policy
+                </button></label
+              >
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="register-button">
+          <span>Create Account</span>
+          <i class="fas fa-user-plus"></i>
+        </button>
+      </form>
+
+      <div class="register-separator">
+        <span>OR</span>
+      </div>
+
+      <div class="register-alternative">
+        <p>
+          Already have an account?
+          <a href="{% url 'login' %}" class="alternative-link">Sign In</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Terms and Privacy Modal -->
+<div id="termsModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-tabs">
+        <button class="tab-button active" data-tab="terms">
+          Terms of Service
+        </button>
+        <button class="tab-button" data-tab="privacy">Privacy Policy</button>
+      </div>
+      <button class="close-modal">&times;</button>
+    </div>
+
+    <div class="modal-body">
+      <div id="termsTab" class="tab-content active">
+        <h3>Terms of Service</h3>
+        <div class="terms-content">
+          <p><strong>Effective Date: May 1, 2025</strong></p>
+
+          <p>
+            Welcome to Behind The Search ("we," "our," or "us"). These Terms of
+            Service ("Terms") govern your use of our website and services that
+            promote and deliver our paid Search Engine Rating course (the
+            "Service").
+          </p>
+
+          <p><strong>1. Acceptance of Terms</strong></p>
+          <p>
+            By accessing or using our website and services, you agree to be
+            bound by these Terms. If you do not agree, please do not use our
+            services.
+          </p>
+
+          <p><strong>2. Eligibility</strong></p>
+          <p>
+            You must be at least 18 years old and capable of entering into a
+            legal agreement to use this Service.
+          </p>
+
+          <p><strong>3. Account Registration</strong></p>
+          <p>
+            To access our course content, you may be required to create an
+            account. You agree to provide accurate information and to maintain
+            the security of your login credentials.
+          </p>
+
+          <p><strong>4. Course Access and Intellectual Property</strong></p>
+          <p>
+            All course materials, including text, video, audio, and downloadable
+            content, are the intellectual property of Behind The Search and are
+            protected under copyright laws. You may not copy, distribute,
+            modify, or create derivative works from the course materials without
+            our written consent.
+          </p>
+
+          <p><strong>5. User Conduct</strong></p>
+          <p>You agree not to:</p>
+          <ul>
+            <li>Use the website for illegal purposes;</li>
+            <li>Attempt to access restricted areas of the website;</li>
+            <li>Share your account or course materials with others.</li>
+          </ul>
+
+          <p><strong>6. Termination</strong></p>
+          <p>
+            We reserve the right to suspend or terminate your access to the
+            Service at our discretion, without notice, if you violate these
+            Terms.
+          </p>
+
+          <p><strong>7. Disclaimers</strong></p>
+          <p>
+            The Service is provided "as is" without warranties of any kind. We
+            do not guarantee that the course will improve your job prospects or
+            income.
+          </p>
+
+          <p><strong>8. Limitation of Liability</strong></p>
+          <p>
+            We shall not be liable for any indirect, incidental, or
+            consequential damages arising out of or related to your use of the
+            Service.
+          </p>
+
+          <p><strong>9. Governing Law</strong></p>
+          <p>
+            These Terms are governed by the laws of Egypt, without regard to
+            conflict of law principles.
+          </p>
+        </div>
+      </div>
+
+      <div id="privacyTab" class="tab-content">
+        <h3>Privacy Policy</h3>
+        <div class="terms-content">
+          <p><strong>Effective Date: May 1, 2025</strong></p>
+
+          <p>
+            This Privacy Policy explains how Behind The Search collects, uses,
+            and protects your personal data when you use our website and
+            services.
+          </p>
+
+          <p><strong>1. Information We Collect</strong></p>
+          <p>We collect the following data:</p>
+          <ul>
+            <li>
+              Personal information (e.g., name, email address) during
+              registration or purchase;
+            </li>
+            <li>
+              Payment information via third-party processors (we do not store
+              card data);
+            </li>
+            <li>Usage data via analytics tools.</li>
+          </ul>
+
+          <p><strong>2. How We Use Your Data</strong></p>
+          <p>We use your data to:</p>
+          <ul>
+            <li>Provide and deliver course content;</li>
+            <li>Process payments;</li>
+            <li>
+              Communicate with you regarding your account or our services;
+            </li>
+            <li>Improve our website and offerings.</li>
+          </ul>
+
+          <p><strong>3. Cookies and Tracking</strong></p>
+          <p>
+            We use cookies and similar technologies for essential site
+            functionality and analytics. You can manage your preferences in your
+            browser settings.
+          </p>
+
+          <p><strong>4. Data Sharing</strong></p>
+          <p>
+            We do not sell or rent your personal data. We may share it with:
+          </p>
+          <ul>
+            <li>
+              Service providers (e.g., hosting, analytics, email delivery);
+            </li>
+            <li>Legal authorities if required by law.</li>
+          </ul>
+
+          <p><strong>5. Data Security</strong></p>
+          <p>
+            We implement industry-standard security measures to protect your
+            data. However, no method of transmission over the Internet is 100%
+            secure.
+          </p>
+
+          <p><strong>6. Your Rights</strong></p>
+          <p>You have the right to:</p>
+          <ul>
+            <li>Access, update, or delete your data;</li>
+            <li>Withdraw consent for data processing;</li>
+            <li>
+              Contact us at support@behindthesearch.com for any privacy-related
+              requests.
+            </li>
+          </ul>
+
+          <p><strong>7. Changes to This Policy</strong></p>
+          <p>
+            We may update this Privacy Policy. Changes will be posted on this
+            page with an updated effective date.
+          </p>
+
+          <p><strong>Contact</strong></p>
+          <p>
+            If you have questions about our Terms or Privacy Policy, please
+            contact us at support@behindthesearch.com
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <div class="modal-agree">
+        <input type="checkbox" id="modalAgree" />
+        <label for="modalAgree"
+          >I have read and agree to the Terms of Service and Privacy
+          Policy</label
+        >
+      </div>
+      <button id="confirmAgreement" class="agree-button" disabled>
+        Confirm
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'js/auth/register.js' %}"></script>
+{% endblock %}

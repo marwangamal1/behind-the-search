@@ -1,0 +1,232 @@
+/* Notifications Page Styles */
+
+.notifications-container {
+  background-color: var(--Surface);
+  border-radius: 12px;
+  border: 1px solid var(--Border);
+  box-shadow: var(--Shadow-Small);
+  overflow: hidden;
+  margin: 1.5rem;
+}
+
+/* Notifications Header */
+.notifications-header {
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--Border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notifications-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.notification-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background-color: var(--Surface);
+  color: var(--Text-Secondary);
+  border: 1px solid var(--Border);
+  cursor: pointer;
+  transition: all var(--Transition-Fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.notification-btn:hover {
+  background-color: var(--Surface-Hover);
+  border-color: var(--Primary-Light);
+  color: var(--Primary);
+}
+
+.notification-btn.primary {
+  background-color: var(--Primary);
+  color: white;
+  border-color: var(--Primary);
+}
+
+.notification-btn.primary:hover {
+  background-color: var(--Primary-Light);
+  border-color: var(--Primary-Light);
+}
+
+/* Notifications List */
+.notifications-list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.notification-item {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--Border);
+  transition: all var(--Transition-Fast);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  background-color: var(--Surface);
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: var(--Surface-Hover);
+}
+
+.notification-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1rem;
+  color: white;
+}
+
+.notification-icon.info {
+  background-color: rgba(124, 77, 255, 0.1);
+  color: var(--Primary);
+}
+
+.notification-icon.success {
+  background-color: var(--Success);
+}
+
+.notification-icon.warning {
+  background-color: var(--Warning);
+}
+
+.notification-icon.error {
+  background-color: var(--Error);
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--Text-Primary);
+  margin: 0 0 0.5rem;
+}
+
+.notification-message {
+  font-size: 0.9rem;
+  color: var(--Text-Secondary);
+  margin: 0 0 1rem;
+}
+
+.notification-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.notification-time {
+  font-size: 0.85rem;
+  color: var(--Text-Secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notification-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.notification-btn-small {
+  padding: 0.35rem;
+  border-radius: 4px;
+  background: none;
+  border: none;
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  transition: all var(--Transition-Fast);
+}
+
+.notification-btn-small:hover {
+  background-color: var(--Surface-Hover);
+  color: var(--Primary);
+}
+
+/* Empty State */
+.empty-notifications {
+  padding: 3rem;
+  text-align: center;
+  color: var(--Text-Secondary);
+}
+
+.empty-notifications i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-notifications p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .notifications-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .notifications-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .notification-btn {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .notification-item {
+    padding: 1rem;
+  }
+
+  .notification-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .notification-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .notification-actions {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .notification-btn {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .notification-title {
+    font-size: 0.95rem;
+  }
+
+  .notification-message {
+    font-size: 0.85rem;
+  }
+}

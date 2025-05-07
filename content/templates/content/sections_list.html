@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Video Sections - Behind The Search{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/section/section_list.css' %}" />
+{% endblock %}
+
+{% block content %}
+<div class="sections-container">
+  <div class="sections-header">
+    <h1>Course Sections</h1>
+    {% if user.is_superuser %}
+    <a href="{% url 'create_section' %}" class="create-section-btn">
+      <i class="fas fa-plus"></i> Create New Section
+    </a>
+    {% endif %}
+  </div>
+
+  {% if sections %}
+  <div class="sections-grid">
+    {% for section in sections %}
+    <div
+      class="section-card"
+      data-aos="fade-up"
+      data-aos-delay="{{ forloop.counter|add:100 }}"
+    >
+      <div class="section-card-header">
+        <h2 class="section-card-title">{{ section.title }}</h2>
+      </div>
+      <div class="section-card-body">
+        <div class="section-card-description">
+          {{ section.description|safe|truncatewords_html:20 }}
+        </div>
+      </div>
+      <div class="section-card-footer">
+        <div class="video-count">
+          <i class="fas fa-video"></i>
+          <span>{{ section.videos.count }} Videos</span>
+        </div>
+        <a href="{% url 'section_detail' section.id %}" class="view-section">
+          View Section <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-sections" data-aos="fade-up">
+    <i class="fas fa-book"></i>
+    <p>No course sections available yet.</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

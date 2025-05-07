@@ -1,0 +1,327 @@
+/* Login Page Styles */
+
+.login-section {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background-color: var(--Background);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-container {
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.login-card {
+  background-color: var(--Surface);
+  border-radius: 1rem;
+  box-shadow: var(--Shadow-Medium);
+  padding: 2rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+
+.login-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(90deg, var(--Primary), var(--Accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: bganimate 6s ease infinite;
+  background-size: 200% 100%;
+}
+
+.login-subtitle {
+  color: var(--Text-Secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+/* Password field - Hide browser's default reveal button */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear,
+input[type="password"]::-webkit-contacts-auto-fill-button,
+input[type="password"]::-webkit-credentials-auto-fill-button {
+  display: none !important;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+/* Fix Firefox - more specific selector */
+input[type="password"] {
+  -webkit-text-security: disc !important;
+}
+
+/*custom toggle button always shows */
+.password-toggle {
+  z-index: 5;
+}
+
+/* Form Styles */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-field {
+  position: relative;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--Border);
+  border-radius: 0.5rem;
+  background-color: var(--Surface-Elevated);
+  transition: all var(--Transition-Normal);
+  overflow: hidden;
+}
+
+.input-container:focus-within {
+  border-color: var(--Accent);
+  box-shadow: 0 0 0 2px rgba(149, 117, 211, 0.1);
+}
+
+.input-container i {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  font-size: 1rem;
+  margin: 0 0.75rem;
+  opacity: 0.8;
+}
+
+.input-container input {
+  flex: 1;
+  padding: 0.85rem 0.75rem 0.85rem 0;
+  border: none;
+  background: transparent;
+  color: var(--Text-Primary);
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+}
+
+.input-container input::placeholder {
+  color: var(--Text-Disabled);
+}
+
+.password-toggle {
+  background: transparent;
+  border: none;
+  color: var(--Text-Secondary);
+  cursor: pointer;
+  padding: 0 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--Transition-Fast);
+}
+
+.password-toggle:hover {
+  color: #1e88e5; /* Blue color for hover state instead of var(--Accent) */
+}
+
+/* Error styles for form validation */
+.input-container.error {
+  border-color: #f44336; /* Red color for error */
+  box-shadow: 0 0 0 2px rgba(244, 67, 54, 0.1);
+}
+
+.input-container.error i {
+  color: #f44336; /* Red color for error icon */
+}
+
+/* Form Options */
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.25rem;
+  font-size: 0.85rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.remember-me input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #1e88e5; /* Blue color for checkbox instead of var(--Accent) */
+}
+
+.remember-me label {
+  color: var(--Text-Secondary);
+  cursor: pointer;
+}
+
+.forgot-password {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  text-decoration: none;
+  transition: color var(--Transition-Fast);
+}
+
+.forgot-password:hover {
+  color: #42a5f5; /* Lighter blue for hover instead of var(--Accent-Light) */
+  text-decoration: underline;
+}
+
+/* Login Button */
+.login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.5rem;
+  margin-top: 0.75rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+  background: linear-gradient(90deg, var(--Primary), var(--Primary-Light));
+  color: var(--Background);
+  transition: all var(--Transition-Fast);
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: all 0.6s;
+}
+
+.login-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--Shadow-Medium);
+}
+
+.login-button:hover::before {
+  left: 100%;
+}
+
+/* Separator */
+.login-separator {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+}
+
+.login-separator::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: var(--Border);
+}
+
+.login-separator span {
+  position: relative;
+  background-color: var(--Surface);
+  padding: 0 0.75rem;
+  color: var(--Text-Secondary);
+  font-size: 0.85rem;
+}
+
+/* Alternative Login Link */
+.login-alternative {
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.login-alternative p {
+  color: var(--Text-Secondary);
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.alternative-link {
+  color: #1e88e5; /* Blue color instead of var(--Accent) */
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--Transition-Fast);
+}
+
+.alternative-link:hover {
+  color: #42a5f5; /* Lighter blue for hover instead of var(--Accent-Light) */
+  text-decoration: underline;
+}
+
+/* Error message styling for Django messages */
+.messages {
+  display: none; /* Hide the container as we'll show toasts instead */
+}
+
+/* Toast customization */
+.vanillatoasts-toast {
+  z-index: 9999; /* Ensure toasts are always on top */
+}
+
+/* Responsive Styles */
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.5rem;
+  }
+
+  .login-title {
+    font-size: 1.5rem;
+  }
+
+  .login-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .form-options {
+    font-size: 0.8rem;
+  }
+
+  .login-button {
+    padding: 0.8rem 1.25rem;
+  }
+
+  .login-alternative {
+    margin-top: 1rem;
+  }
+
+  .login-alternative p {
+    font-size: 0.85rem;
+  }
+
+  .alternative-link {
+    font-size: 0.85rem;
+  }
+}

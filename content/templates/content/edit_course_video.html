@@ -1,0 +1,145 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Edit Video: {{
+video.title }} - Behind The Search{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/content/video-create.css' %}" />
+<link rel="stylesheet" href="{% static 'css/content/edit-video.css' %}" />
+{% endblock %} {% block content %}
+<div class="video-edit-container">
+  <div class="video-create-container">
+    <div class="video-create-header">
+      <h1 class="truncated-title" title="{{ video.title }}">
+        Edit Video: {{ video.title }}
+      </h1>
+      <a href="{% url 'section_detail' section_id %}" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to List
+      </a>
+    </div>
+
+    <div class="video-create-content">
+      <form method="POST" enctype="multipart/form-data" id="video-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="{{ form.title.id_for_label }}">Video Title</label>
+          {{ form.title }}
+          <div class="form-help">Clear, descriptive title for your lesson</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group half-width">
+            <label for="{{ form.lesson_number.id_for_label }}"
+              >Lesson Number</label
+            >
+            {{ form.lesson_number }}
+            <div class="form-help">Lesson order in the course</div>
+          </div>
+
+          <div class="form-group half-width">
+            <label for="{{ form.section.id_for_label }}">Section</label>
+            {{ form.section }}
+            <div class="form-help">
+              Choose which section this video belongs to
+            </div>
+          </div>
+        </div>
+
+        <div class="bunny-video-section">
+          <h3 class="section-title">
+            <i class="fas fa-video"></i> Video Source
+          </h3>
+          <div class="form-group">
+            <label for="{{ form.bunny_video_id.id_for_label }}"
+              >Bunny.net Video ID</label
+            >
+            {{ form.bunny_video_id }}
+            <div class="form-help">
+              Enter only the video ID from your Bunny.net embed code.<br />
+              Example: For
+              <code
+                >https://iframe.mediadelivery.net/embed/420524/eefdc431-726a-4ccc-b2f1-127b9aa449a5</code
+              >, enter <code>eefdc431-726a-4ccc-b2f1-127b9aa449a5</code>
+            </div>
+          </div>
+
+          <div class="bunny-preview-container">
+            <h4>Preview</h4>
+            <div
+              class="bunny-preview"
+              {%
+              if
+              video.bunny_video_id
+              %}
+              style="display: block; position: relative; padding-top: 56.25%"
+              {%
+              else
+              %}
+              style="display: none; position: relative; padding-top: 56.25%"
+              {%
+              endif
+              %}
+            >
+              <iframe
+                id="bunny-preview-iframe"
+                src="{% if video.bunny_video_id %}https://iframe.mediadelivery.net/embed/{{ video.bunny_library_id }}/{{ video.bunny_video_id }}?autoplay=false&loop=false&muted=false&preload=true&responsive=true{% endif %}"
+                loading="lazy"
+                style="
+                  border: 0;
+                  position: absolute;
+                  top: 0;
+                  height: 100%;
+                  width: 100%;
+                "
+                allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+                allowfullscreen="true"
+              >
+              </iframe>
+            </div>
+            <button type="button" id="preview-bunny-btn" class="preview-button">
+              <i class="fas fa-eye"></i> {% if video.bunny_video_id %}Refresh
+              Preview{% else %}Preview Video{% endif %}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" id="deleteButton" class="delete-button">
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+          <button type="submit" class="save-button">
+            <i class="fas fa-save"></i> Save Changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Confirm Deletion</h3>
+    </div>
+    <div class="modal-content">
+      <p>
+        Are you sure you want to delete
+        <strong title="{{ video.title }}">"{{ video.title }}"</strong>?
+      </p>
+      <p>
+        This action cannot be undone and all associated data will be removed.
+      </p>
+    </div>
+    <div class="modal-actions">
+      <button id="cancelDelete" class="cancel-button">Cancel</button>
+      <a
+        href="{% url 'delete_course_video' video.id %}"
+        class="delete-confirm-button"
+      >
+        <i class="fas fa-trash-alt"></i> Delete
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'js/content/video-edit.js' %}"></script>
+{% endblock %}

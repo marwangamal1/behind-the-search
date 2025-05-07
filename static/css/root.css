@@ -1,0 +1,110 @@
+/* Google font */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+  /* 60% - Main colors (background) */
+  --Background: #ffffff; /* Pure white */
+  --Background-Secondary: #f6f8fa; /* Very light gray for contrast */
+  --Background-Tertiary: #eaf0f6;
+
+  /* 30% - Secondary colors (surfaces, containers) */
+  --Surface: #ffffff;
+  --Surface-Hover: #f3f6f9;
+  --Surface-Elevated: #eff3f7;
+
+  /* 10% - Accent colors (buttons, highlights) */
+  --Primary: #0056b3; /* Darker, more readable blue */
+  --Primary-Dark: #003b7a;
+  --Primary-Light: #8e24aa; /* Purple-blue blend */
+  --Accent: #8e24aa; /* Violet as secondary accent */
+  --Accent-Light: #e1bee7; /* Gentle lavender for lighter accent */
+
+  /* Text colors */
+  --Text-Primary: #181818;
+  --Text-Secondary: #505d6a;
+  --Text-Disabled: #b3bec7;
+  --text-black: #000000;
+  --Text-Placeholder: #aa8ebb; /* Slight lavender tint for placeholder */
+
+  /* UI element colors */
+  --Border: #e5e9ef;
+  --Border-Focus: #8e24aa; /* Focus border with purple for visual interest */
+  --Divider: #eceff1;
+
+  /* Interactive states */
+  --Button-Hover: #7228a0; /* Deeper purple on hover */
+  --Button-Active: #003b7a;
+  --Link: #0056b3;
+  --Link-Hover: #8e24aa; /* Blue to purple hover for link, lively! */
+
+  /* Feedback colors */
+  --Success: #2ecc71;
+  --Warning: #fbbb10;
+  --Error: #e65858;
+  --Info: #7c4dff; /* Use a purple-tinted blue for info */
+
+  /* Shadows */
+  --Shadow-Small: 0 2px 8px rgba(142, 36, 170, 0.08);
+  --Shadow-Medium: 0 4px 16px rgba(19, 115, 198, 0.1);
+  --Shadow-Large: 0 8px 24px rgba(22, 42, 56, 0.13);
+
+  /* Animation speeds */
+  --Transition-Fast: 0.15s ease;
+  --Transition-Normal: 0.3s ease;
+  --Transition-Slow: 0.5s ease;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: var(--Background);
+  color: var(--Text-Primary);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
+  width: 100vw;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  display: none;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--Background-Secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--Primary-Light); /* now purple/blue */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--Accent); /* lively purple on hover */
+}
+
+@keyframes bganimate {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}

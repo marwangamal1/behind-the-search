@@ -1,0 +1,99 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Create Course Video
+- Behind The Search{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/content/video-create.css' %}" />
+{% endblock %} {% block content %}
+<div class="video-create-container">
+  <div class="video-create-header">
+    <h1>Create a New Course Video</h1>
+    <a href="{% url 'admin-dashboard' %}" class="back-button">
+      <i class="fas fa-arrow-left"></i> Back to Video List
+    </a>
+  </div>
+
+  <div class="video-create-content">
+    <form method="POST" enctype="multipart/form-data" id="video-form">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Video Title</label>
+        {{ form.title }}
+        <div class="form-help">
+          Choose a clear, descriptive title for your lesson
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half-width">
+          <label for="{{ form.lesson_number.id_for_label }}"
+            >Lesson Number</label
+          >
+          {{ form.lesson_number }}
+          <div class="form-help">
+            Determines the order of this lesson in the course
+          </div>
+        </div>
+
+        <div class="form-group half-width">
+          <label for="{{ form.section.id_for_label }}">Section</label>
+          {{ form.section }}
+          <div class="form-help">
+            Choose which section this video belongs to
+          </div>
+        </div>
+      </div>
+
+      <div class="bunny-video-section">
+        <h3 class="section-title"><i class="fas fa-video"></i> Video Source</h3>
+        <div class="form-group">
+          <label for="{{ form.bunny_video_id.id_for_label }}"
+            >Bunny.net Video ID</label
+          >
+          {{ form.bunny_video_id }}
+          <div class="form-help">
+            Enter only the video ID from your Bunny.net embed code.<br />
+            Example: For
+            <code
+              >https://iframe.mediadelivery.net/embed/420524/eefdc431-726a-4ccc-b2f1-127b9aa449a5</code
+            >, enter <code>eefdc431-726a-4ccc-b2f1-127b9aa449a5</code>
+          </div>
+        </div>
+
+        <div class="bunny-preview-container">
+          <h4>Preview</h4>
+          <div
+            class="bunny-preview"
+            style="display: none; position: relative; padding-top: 56.25%"
+          >
+            <iframe
+              id="bunny-preview-iframe"
+              src=""
+              loading="lazy"
+              style="
+                border: 0;
+                position: absolute;
+                top: 0;
+                height: 100%;
+                width: 100%;
+              "
+              allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;"
+              allowfullscreen="true"
+            >
+            </iframe>
+          </div>
+          <button type="button" id="preview-bunny-btn" class="preview-button">
+            <i class="fas fa-eye"></i> Preview Video
+          </button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="save-button">
+          <i class="fas fa-save"></i> Publish Lesson
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'js/content/video-create.js' %}"></script>
+{% endblock %}

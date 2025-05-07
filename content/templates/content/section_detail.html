@@ -1,0 +1,135 @@
+{% extends 'base.html' %} 
+{% load static %} 
+
+{% block title %}{{ section.title }} - Behind The Search{% endblock %} 
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/section/section_detail.css' %}" />
+{% endblock %} 
+
+{% block content %}
+<div class="section-layout">
+  <!-- Fixed sidebar at the far left -->
+  <aside class="section-videos-sidebar">
+    <div class="videos-sidebar-header">
+      <div class="course-progress-container">
+        <div class="course-progress-bar">
+          <div class="course-progress-fill" id="courseProgressFill"></div>
+        </div>
+        <div class="course-progress-text">
+          <span id="courseProgressText">0/0 completed</span>
+          <span id="courseProgressPercentage">0%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="videos-list">
+      {% for video in videos %}
+      <a href="{% url 'video_detail' video.id %}" 
+         class="video-item"
+         data-video-id="{{ video.id }}"
+         data-completed="{% if video.mark_as_watched %}true{% else %}false{% endif %}">
+        <div class="video-number">{{ forloop.counter }}</div>
+        <div class="video-info">
+          <h4 class="video-title">{{ video.title }}</h4>
+          <div class="video-meta">
+            {% if video.mark_as_watched %}
+            <span class="video-status completed">
+              <i class="fas fa-check-circle"></i> Completed
+            </span>
+            {% else %}
+            <span class="video-status pending">
+              <i class="fas fa-circle"></i> Not started
+            </span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+      {% empty %}
+      <div class="no-videos">
+        <i class="fas fa-video-slash"></i>
+        <p>No videos in this section yet.</p>
+        {% if user.is_superuser %}
+        <a href="{% url 'create_course_video' %}" class="add-video-btn">
+          <i class="fas fa-plus"></i> Add Video
+        </a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <!-- Main content with appropriate margin -->
+  <div class="section-main-wrapper">
+    <div class="section-detail-container">
+      <div class="section-detail-header">
+        <h1>{{ section.title }}</h1>
+        
+        {% if user.is_superuser %}
+        <div class="section-actions">
+          <a href="{% url 'edit_section' section.id %}" class="btn-edit">
+            <i class="fas fa-edit"></i> Edit
+          </a>
+          <button type="button" id="deleteButton" class="btn-delete">
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+        </div>
+        {% endif %}
+      </div>
+
+      <main class="section-main-content">
+        <div class="section-description-area">
+          <h2>About this section</h2>
+          <div class="section-description">
+            {{ section.description|safe }}
+          </div>
+          
+          {% if videos %}
+          <div class="section-actions-area">
+            <a href="{% url 'video_detail' videos.0.id %}" class="start-course-btn">
+              <i class="fas fa-play-circle"></i> Start Learning
+            </a>
+          </div>
+          {% endif %}
+        </div>
+      </main>
+
+      <div class="back-navigation">
+        <a href="{% url 'sections_list' %}" class="back-link">
+          <i class="fas fa-arrow-left"></i> Back to Sections
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <i class="fas fa-exclamation-triangle"></i>
+      <h3>Confirm Deletion</h3>
+    </div>
+    <div class="modal-content">
+      <p>
+        Are you sure you want to delete the section
+        <strong>"{{ section.title }}"</strong>?
+      </p>
+      <p>This will remove all videos in this section and cannot be undone.</p>
+    </div>
+    <div class="modal-actions">
+      <button id="cancelDelete" class="cancel-button">Cancel</button>
+      <a
+        href="{% url 'delete_section' section.id %}"
+        class="delete-confirm-button"
+      >
+        <i class="fas fa-trash-alt"></i> Delete
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %} 
+
+{% block extra_js %}
+<script src="{% static 'js/content/section_detail.js' %}"></script>
+{% endblock %}

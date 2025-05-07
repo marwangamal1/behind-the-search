@@ -1,0 +1,297 @@
+/* Section List Styles */
+
+.sections-container {
+  max-width: 1200px;
+  margin: 1.5rem auto;
+  padding: 0 1.25rem;
+}
+
+.sections-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--Border);
+  padding-bottom: 0.75rem;
+}
+
+.sections-header h1 {
+  font-size: 1.75rem;
+  color: var(--Text-Primary);
+  font-weight: 600;
+  margin: 0;
+  background: linear-gradient(to right, var(--Primary), var(--Accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.create-section-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 1rem 0.75rem;
+  background-color: var(--Primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: var(--Transition-Normal);
+  box-shadow: var(--Shadow-Small);
+}
+
+.create-section-btn:hover {
+  background-color: var(--Button-Hover);
+  transform: translateY(-2px);
+  box-shadow: var(--Shadow-Medium);
+}
+
+.sections-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.section-card {
+  background-color: var(--Surface);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--Shadow-Small);
+  transition: var(--Transition-Normal);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 1px solid var(--Border);
+}
+
+.section-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--Shadow-Medium);
+  border-color: var(--Primary-Light);
+}
+
+.section-card-header {
+  padding: 0.9rem 1.1rem 0.6rem;
+  border-bottom: 1px solid var(--Divider);
+}
+
+.section-card-title {
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--Text-Primary);
+  font-weight: 600;
+}
+
+.section-card-body {
+  padding: 0.8rem 1.1rem;
+  flex-grow: 1;
+}
+
+.section-card-description {
+  color: var(--Text-Secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  max-height: 2.8em; /* 2 lines * 1.4 line-height */
+  position: relative;
+}
+
+/* Remove the fade gradient since we're using line-clamp */
+.section-card-description:after {
+  display: none;
+}
+
+/* Quill Content Styling for cards */
+.section-card-description h1,
+.section-card-description h2,
+.section-card-description h3,
+.section-card-description h4,
+.section-card-description h5,
+.section-card-description h6 {
+  font-size: 0.85rem; /* Same as paragraph text */
+  font-weight: 600;
+  margin: 0;
+  display: inline;
+}
+
+.section-card-description p {
+  margin: 0;
+  display: inline;
+}
+
+.section-card-description br,
+.section-card-description hr {
+  display: none;
+}
+
+.section-card-description ul, 
+.section-card-description ol {
+  display: inline;
+  padding-left: 0;
+  margin: 0;
+}
+
+.section-card-description li {
+  display: inline;
+  margin: 0;
+}
+
+.section-card-description li:after {
+  content: ", ";
+}
+
+.section-card-description li:last-child:after {
+  content: "";
+}
+
+.section-card-description a {
+  color: var(--Primary);
+  text-decoration: none;
+}
+
+.section-card-description strong {
+  font-weight: 600;
+}
+
+/* Hide empty paragraphs and Quill cursor artifacts */
+.section-card-description p:empty,
+.section-card-description .ql-cursor {
+  display: none;
+}
+
+.section-card-footer {
+  padding: 0.75rem 1.1rem;
+  border-top: 1px solid var(--Divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--Background-Secondary);
+}
+
+.video-count {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--Text-Secondary);
+  font-size: 0.8rem;
+}
+
+.video-count i {
+  color: var(--Primary-Light);
+}
+
+.view-section {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--Primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.85rem;
+  transition: var(--Transition-Fast);
+}
+
+.view-section:hover {
+  color: var(--Link-Hover);
+}
+
+.view-section i {
+  transition: transform 0.2s ease;
+}
+
+.view-section:hover i {
+  transform: translateX(3px);
+}
+
+.empty-sections {
+  text-align: center;
+  padding: 2.25rem 1rem;
+  background-color: var(--Background-Secondary);
+  border-radius: 8px;
+  border: 1px dashed var(--Border);
+  margin: 1.5rem 0;
+}
+
+.empty-sections i {
+  font-size: 2.25rem;
+  color: var(--Text-Disabled);
+  margin-bottom: 0.75rem;
+}
+
+.empty-sections p {
+  font-size: 0.95rem;
+  color: var(--Text-Secondary);
+  margin-bottom: 1.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .sections-grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sections-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .sections-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 576px) {
+  .sections-container {
+    padding: 0 0.75rem;
+    margin: 1rem auto;
+  }
+  
+  .sections-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .sections-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-card-title {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sections-header h1 {
+    font-size: 1.35rem;
+  }
+  
+  .create-section-btn {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+  
+  .section-card-header {
+    padding: 0.75rem 1rem 0.5rem;
+  }
+  
+  .section-card-body, 
+  .section-card-footer {
+    padding: 0.7rem 1rem;
+  }
+}
+
+/* Better grid layout for larger screens */
+@media (min-width: 1200px) {
+  .sections-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

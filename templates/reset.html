@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Set New Password |
+Behind The Search {% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/password/reset.css' %}" />
+{% endblock %} {% block content %}
+<section class="password-reset-section">
+  <div class="password-reset-container">
+    <div class="password-reset-card">
+      <div class="password-reset-header">
+        <i class="fas fa-key password-reset-icon"></i>
+        <h1 class="password-reset-title">Set New Password</h1>
+        <p class="password-reset-subtitle">
+          Please enter your new password twice so we can verify you typed it
+          correctly.
+        </p>
+      </div>
+
+      <form class="password-reset-form" method="POST">
+        {% csrf_token %}
+        <div class="form-field">
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            {{ form.new_password1 }}
+          </div>
+          {% if form.new_password1.errors %}
+          <div class="message-box warning">
+            <div class="message-box-content">
+              {{ form.new_password1.errors }}
+            </div>
+          </div>
+          {% endif %} {% if form.new_password1.help_text %}
+          <div class="password-help-text">
+            {{ form.new_password1.help_text }}
+          </div>
+          {% endif %}
+        </div>
+
+        <div class="form-field">
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            {{ form.new_password2 }}
+          </div>
+          {% if form.new_password2.errors %}
+          <div class="message-box warning">
+            <div class="message-box-content">
+              {{ form.new_password2.errors }}
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <button type="submit" class="reset-button">
+          <i class="fas fa-check"></i>
+          <span>Set New Password</span>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,179 @@
+/* Custom Toast Notifications Styling */
+#vanillatoasts-container {
+  z-index: 2000 !important; /* Ensure toasts appear above the navbar */
+  position: fixed;
+}
+
+.vanillatoasts-toast {
+  position: relative;
+  z-index: 2001 !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+  border-radius: 12px;
+  border: none;
+  background-color: var(--Surface-Elevated);
+  color: var(--Text-Primary);
+  padding: 15px;
+  max-width: 320px;
+  overflow: hidden;
+  --progress-duration: 5000ms; /* Default duration if not set by JS */
+}
+
+.vanillatoasts-title {
+  color: var(--Text-Secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 3px;
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Add icons to different toast types */
+.vanillatoasts-toast.vanillatoasts-success .vanillatoasts-title:before,
+.vanillatoasts-toast.vanillatoasts-error .vanillatoasts-title:before,
+.vanillatoasts-toast.vanillatoasts-warning .vanillatoasts-title:before,
+.vanillatoasts-toast.vanillatoasts-info .vanillatoasts-title:before {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  margin-right: 6px;
+  font-size: 14px;
+}
+
+/* Icon for success toast */
+.vanillatoasts-toast.vanillatoasts-success .vanillatoasts-title:before {
+  content: "\f00c"; /* fa-check */
+  color: var(--Success);
+}
+
+/* Icon for error toast */
+.vanillatoasts-toast.vanillatoasts-error .vanillatoasts-title:before {
+  content: "\f06a"; /* fa-exclamation-circle */
+  color: var(--Error);
+}
+
+/* Icon for warning toast */
+.vanillatoasts-toast.vanillatoasts-warning .vanillatoasts-title:before {
+  content: "\f071"; /* fa-triangle-exclamation */
+  color: var(--Warning);
+}
+
+/* Icon for info toast */
+.vanillatoasts-toast.vanillatoasts-info .vanillatoasts-title:before {
+  content: "\f129"; /* fa-info */
+  color: var(--Info);
+}
+
+.vanillatoasts-text {
+  color: var(--Text-Secondary);
+  margin-top: 4px;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+/* Close button */
+.vanillatoasts-toast .vanillatoasts-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: var(--Text-Disabled);
+  font-size: 16px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vanillatoasts-toast .vanillatoasts-close:hover {
+  opacity: 1;
+  color: var(--Text-Primary);
+}
+
+/* Replace the text "×" with the Font Awesome icon */
+.vanillatoasts-toast .vanillatoasts-close:before {
+  content: "\f00d"; /* fa-xmark */
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-size: 14px;
+}
+
+/* Hide the original content */
+.vanillatoasts-toast .vanillatoasts-close span {
+  display: none;
+}
+
+/* Progress bar */
+.vanillatoasts-toast:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.vanillatoasts-toast.vanillatoasts-success:after {
+  background-color: var(--Success);
+  animation: toast-progress var(--progress-duration) linear forwards;
+}
+
+.vanillatoasts-toast.vanillatoasts-error:after {
+  background-color: var(--Error);
+  animation: toast-progress var(--progress-duration) linear forwards;
+}
+
+.vanillatoasts-toast.vanillatoasts-warning:after {
+  background-color: var(--Warning);
+  animation: toast-progress var(--progress-duration) linear forwards;
+}
+
+.vanillatoasts-toast.vanillatoasts-info:after {
+  background-color: var(--Info);
+  animation: toast-progress var(--progress-duration) linear forwards;
+}
+
+/* Animation for the progress bar */
+@keyframes toast-progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+/* Toast animations */
+.vanillatoasts-fadeOut {
+  animation: toast-fade-out 0.3s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.vanillatoasts-fadeIn {
+  animation: toast-fade-in 0.2s cubic-bezier(0, 0, 0.2, 1) forwards;
+}
+
+@keyframes toast-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toast-fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}

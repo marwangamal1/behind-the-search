@@ -1,0 +1,104 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Login - Behind The
+Search{% endblock %} {% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/login/base.css' %}" />
+{% endblock %} {% block content %}
+<section class="login-section">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h2 class="login-title">Welcome Back</h2>
+        <p class="login-subtitle">Sign in to continue your journey</p>
+      </div>
+
+      <!-- Messages container for displaying errors -->
+      {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+        <div
+          class="message message-{% if message.tags %}{{ message.tags }}{% endif %}"
+        >
+          {{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <!-- for test the toast no validate from the backend -->
+      <form
+        action=""
+        method="post"
+        class="login-form"
+        id="login-form"
+        novalidate
+      >
+        {% csrf_token %}
+
+        <div class="form-field">
+          <div class="input-container">
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              autocomplete="username"
+              placeholder="Username"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-field">
+          <div class="input-container">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              autocomplete="current-password"
+              placeholder="Password"
+              required
+            />
+            <button
+              type="button"
+              class="password-toggle"
+              aria-label="Toggle password visibility"
+            >
+              <i class="fas fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember" />
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="{% url 'reset_password' %}" class="forgot-password"
+            >Forgot Password?</a
+          >
+        </div>
+
+        <button type="submit" class="login-button">
+          <span>Sign In</span>
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </form>
+
+      <div class="login-separator">
+        <span>OR</span>
+      </div>
+
+      <div class="login-alternative">
+        <p>
+          Don't have an account?
+          <a href="{% url 'register' %}" class="alternative-link"
+            >Create Account</a
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %} {% block extra_js %}
+<script src="{% static 'js/auth/login.js' %}"></script>
+{% endblock %}
