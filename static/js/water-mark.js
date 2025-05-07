@@ -232,8 +232,8 @@ class VideoWatermark {
             Object.assign(fsButton.style, {
                 position: 'absolute',
                 bottom: '10px',
-                left: '45px',
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                left: '120px',
+                // backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
@@ -310,7 +310,7 @@ class VideoWatermark {
             Object.assign(this.fsButton.style, {
                 position: 'absolute',
                 bottom: '10px',
-                left: '45px',
+                left: '120px',
                 backgroundColor: 'rgba(0, 0, 0, 0.7)',
                 color: 'white',
                 border: 'none',
