@@ -132,7 +132,7 @@
 
     if (devToolsOpen) {
       logSecurityEvent("devtools", "DevTools detected on page load");
-      showFullscreenWarning("⚠️ DevTools must be closed to access this site.");
+      // showFullscreenWarning("⚠️ DevTools must be closed to access this site.");
       return true;
     }
     return false;
@@ -164,17 +164,6 @@
   }
 
   const onDOMReady = () => {
-    // Initial check on page load
-    if (checkDevToolsStatus()) {
-      showFullscreenWarning("⚠️ DevTools must be closed to access this site.");
-    }
-
-    // Regular interval check
-    setInterval(() => {
-      if (checkDevToolsStatus()) {
-        showFullscreenWarning("⚠️ DevTools must be closed to access this site.");
-      }
-    }, 1000);
 
     // Prevent right-click
     document.addEventListener("contextmenu", (e) => {
