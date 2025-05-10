@@ -16,8 +16,8 @@ from users.utils.discord_logger import log_video_watch
 
 @access_required
 def sections_list(request):
-    # Fetch all VideoSection objects from the database
-    sections = VideoSection.objects.all()
+    # Fetch all VideoSection objects and sort by section_number ascending
+    sections = VideoSection.objects.all().order_by('section_number')
     videos_count = CourseVideo.objects.all().count()
 
     context = {
