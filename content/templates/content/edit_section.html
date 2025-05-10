@@ -29,6 +29,15 @@
       </div>
 
       <div class="form-group">
+        <label for="{{ form.section_number.id_for_label }}">Section Number</label>
+        {{ form.section_number }}
+        <span class="form-help-text">Specify the order number of this section</span>
+        {% if form.section_number.errors %}
+        <div class="form-error">{{ form.section_number.errors }}</div>
+        {% endif %}
+      </div>
+
+      <div class="form-group">
         <label for="quillEditor">Description</label>
         <div id="quillEditor" class="quill-editor"></div>
 
@@ -86,7 +95,6 @@
     const descriptionField = document.querySelector('input[name="{{ form.description.html_name }}"]');
     if (descriptionField && descriptionField.value) {
       try {
-        // Remove any Quill cursor spans or other artifacts
         let content = descriptionField.value.replace(/<span class="ql-cursor">.*?<\/span>/g, '');
         quill.root.innerHTML = content;
       } catch (e) {
@@ -97,12 +105,10 @@
     // Update hidden form field before submit
     const form = document.getElementById('sectionForm');
     form.addEventListener('submit', function(e) {
-      // Clean up the HTML before saving
       let cleanHtml = quill.root.innerHTML
         .replace(/<span class="ql-cursor">.*?<\/span>/g, '')
         .replace(/<p><br><\/p>/g, '<p></p>');
       
-      // Only if there's actual content
       if (cleanHtml.trim()) {
         descriptionField.value = cleanHtml;
       }
@@ -113,5 +119,5 @@
       document.querySelector('.btn-save').classList.add('btn-highlight');
     });
   });
-</script>
+</script> 
 {% endblock %}
