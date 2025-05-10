@@ -11,4 +11,4 @@ class CourseVideoForm(forms.ModelForm):
 class VideoSectionForm(forms.ModelForm):
     class Meta:
         model = VideoSection
-        fields = ['title', 'description']
+        fields = ['title', 'description','section_number']
