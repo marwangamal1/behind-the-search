@@ -29,7 +29,7 @@
          class="video-item"
          data-video-id="{{ video.id }}"
          data-completed="{% if video.mark_as_watched %}true{% else %}false{% endif %}">
-        <div class="video-number">{{ forloop.counter }}</div>
+        <div class="video-number">{{ video.lesson_number }}</div>
         <div class="video-info">
           <h4 class="video-title">{{ video.title }}</h4>
           <div class="video-meta">
